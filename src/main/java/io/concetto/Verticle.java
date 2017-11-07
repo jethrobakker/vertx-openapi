@@ -7,8 +7,6 @@ import io.vertx.core.http.HttpServerOptions;
 import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
 import io.vertx.ext.web.Router;
-import io.vertx.ext.web.api.RequestParameter;
-import io.vertx.ext.web.api.RequestParameters;
 import io.vertx.ext.web.api.contract.openapi3.OpenAPI3RouterFactory;
 import io.vertx.ext.web.api.validation.ValidationException;
 
@@ -34,21 +32,24 @@ public class Verticle extends AbstractVerticle {
             OpenAPI3RouterFactory routerFactory = openAPI3RouterFactoryAsyncResult.result();
 
             // Add an handler with operationId
-            routerFactory.addHandlerByOperationId("listPets", routingContext -> {
-                RequestParameters params = routingContext.get("parsedParameters");
-                // Handle listPets operation
-                RequestParameter limitParameter = params.queryParameter(/* Parameter name */ "limit");
-                if (limitParameter != null) {
-                    // limit parameter exists, use it!
-                    Integer limit = limitParameter.getInteger();
-                } else {
-                    // limit parameter doesn't exist (it's not required). If it's required you don't have to check if it's null!
-                }
-                routingContext.response().setStatusMessage("Called listPets").end();
+            routerFactory.addHandlerByOperationId("getMethod", routingContext -> {
+//                RequestParameters params = routingContext.get("parsedParameters");
+//                // Handle listPets operation
+//                RequestParameter limitParameter = params.queryParameter(/* Parameter name */ "limit");
+//                if (limitParameter != null) {
+//                    // limit parameter exists, use it!
+//                    Integer limit = limitParameter.getInteger();
+//                } else {
+//                    // limit parameter doesn't exist (it's not required). If it's required you don't have to check if it's null!
+//                }
+
+
+
+                routingContext.response().setStatusMessage("Called getMethod").end();
             });
 
             // Add a failure handler
-            routerFactory.addFailureHandlerByOperationId("listPets", routingContext -> {
+            routerFactory.addFailureHandlerByOperationId("getMethod", routingContext -> {
                 // This is the failure handler
                 Throwable failure = routingContext.failure();
                 if (failure instanceof ValidationException)
